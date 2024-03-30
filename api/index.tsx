@@ -13,13 +13,13 @@ import { useState } from 'hono/jsx';
 // }
 
 export const app = new Frog({
-  assetsPath: 'https://cdn.pixabay.com',
+  assetsPath: '/',
   basePath: '/api',
 
  // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' })
 })
 
-app.frame('https://cdn.pixabay.com', (c : any) => {
+app.frame('/', (c : any) => {
   
   const { buttonValue, inputText, status } = c
   const fruit = inputText || buttonValue
@@ -33,10 +33,10 @@ app.frame('https://cdn.pixabay.com', (c : any) => {
   })
 })
 
-  app.frame('https://cdn.pixabay.com/submit', async (c:any) => {
+  app.frame('/submit', async (c:any) => {
     const { buttonValue } = c
     const client = new CovalentClient("cqt_rQmCBkqc6Cqxb3JkJ3vB8kcf87Dk");
-    // const neynar_client = new NeynarAPIClient(`cqt_rQmCBkqc6Cqxb3JkJ3vB8kcf87Dk`); 
+    // const neynar_client = new NeynarAPIClient(`cqt_rQmCBkqc6Cqxb3JkJ3vB8kcf87Dk`);
     
     let valueData
     let valueData1
@@ -51,6 +51,7 @@ app.frame('https://cdn.pixabay.com', (c : any) => {
       const resp = await client.NftService.getNftsForAddress("eth-mainnet",`${c.inputText}`);
       valueData = resp.data.items[0].contract_name;
 
+      console.log(resp.data.items)
     }
 
     if (buttonValue === "eth"){
