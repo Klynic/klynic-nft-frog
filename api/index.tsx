@@ -51,7 +51,6 @@ app.frame('/', (c : any) => {
       const resp = await client.NftService.getNftsForAddress("eth-mainnet",`${c.inputText}`);
       valueData = resp.data.items[0].contract_name;
 
-      console.log(resp.data.items)
     }
 
     if (buttonValue === "eth"){
