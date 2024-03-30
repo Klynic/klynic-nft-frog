@@ -5,6 +5,7 @@ import { NeynarAPIClient } from "@neynar/nodejs-sdk";
 import { serveStatic } from 'frog/serve-static'
 import { neynar } from 'frog/hubs'
 import { handle } from 'frog/vercel'
+import { useState } from 'hono/jsx';
 
 // Uncomment to use Edge Runtime.
 // export const config = {
@@ -14,9 +15,12 @@ import { handle } from 'frog/vercel'
 export const app = new Frog({
   assetsPath: '/',
   basePath: '/api',
+
+ // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' })
 })
 
 app.frame('/', (c) => {
+  
   const { buttonValue, inputText, status } = c
   const fruit = inputText || buttonValue
   return c.res({
@@ -29,16 +33,29 @@ app.frame('/', (c) => {
   })
 })
 
-  app.frame('/submit', (c) => {
+  app.frame('/submit', async (c) => {
+    let newData
     const { buttonValue } = c
-    const client = new CovalentClient(`${process.env.COVALENT_KEY}`);
+    const client = new CovalentClient("cqt_rQmCBkqc6Cqxb3JkJ3vB8kcf87Dk");
     const neynar_client = new NeynarAPIClient(`${process.env.NEYNAR_API_KEY}`);
+
+
+    if (buttonValue === "eth"){
+      const resp = await client.NftService.getNftsForAddress("eth-mainnet",`${c.inputText}`);
+      newData=resp.data.items[0]
+    console.log(resp.data.items[0]);
+  }
 
     return c.res({
       image: (
-        <div style={{ color: 'white', display: 'flex', fontSize: 60 }}>
-          Selected: {buttonValue}
+        <>
+        {/* {data.map((singledata:any, index:any)=>( */}
+          <div style={{ color: 'white', display: 'flex', fontSize: 60 }}>
+          Contract_name : {newData}
       </div>
+        {/* ))} */}
+        </>
+        
     ),
     intents:[
       <Button.Link href="https://www.covalenthq.com/platform/#/">Free Covalent API key</Button.Link>,
