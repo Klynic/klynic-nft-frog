@@ -19,7 +19,7 @@ export const app = new Frog({
  // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' })
 })
 
-app.frame('/', (c) => {
+app.frame('/', (c : any) => {
   
   const { buttonValue, inputText, status } = c
   const fruit = inputText || buttonValue
@@ -33,30 +33,69 @@ app.frame('/', (c) => {
   })
 })
 
-  app.frame('/submit', async (c) => {
-    let newData
+  app.frame('/submit', async (c:any) => {
     const { buttonValue } = c
     const client = new CovalentClient("cqt_rQmCBkqc6Cqxb3JkJ3vB8kcf87Dk");
-    const neynar_client = new NeynarAPIClient(`${process.env.NEYNAR_API_KEY}`);
+    // const neynar_client = new NeynarAPIClient(`cqt_rQmCBkqc6Cqxb3JkJ3vB8kcf87Dk`);
+    
+    let valueData
+    let valueData1
+    let valueData2
+
+    let valueData3
+    let valueData4
+    let valueData5
 
 
     if (buttonValue === "eth"){
       const resp = await client.NftService.getNftsForAddress("eth-mainnet",`${c.inputText}`);
-      newData=resp.data.items[0]
-    console.log(resp.data.items[0]);
-  }
+      valueData = resp.data.items[0].contract_name;
+
+      console.log(resp.data.items)
+    }
+
+    if (buttonValue === "eth"){
+      const resp = await client.NftService.getNftsForAddress("eth-mainnet",`${c.inputText}`);
+      valueData1 = resp.data.items[0].contract_address;
+    }
+
+    if (buttonValue === "eth"){
+      const resp = await client.NftService.getNftsForAddress("eth-mainnet",`${c.inputText}`);
+      valueData2 = resp.data.items[0].type;
+    }
+
+
+
+    if (buttonValue === "eth"){
+      const resp = await client.NftService.getNftsForAddress("eth-mainnet",`${c.inputText}`);
+      valueData3 = resp.data.items[1].contract_name;
+    }
+
+
+    if (buttonValue === "eth"){
+      const resp = await client.NftService.getNftsForAddress("eth-mainnet",`${c.inputText}`);
+      valueData4 = resp.data.items[1].contract_address;
+    }
+
+    if (buttonValue === "eth"){
+      const resp = await client.NftService.getNftsForAddress("eth-mainnet",`${c.inputText}`);
+      valueData5= resp.data.items[1].type;
+    }
 
     return c.res({
       image: (
-        <>
-        {/* {data.map((singledata:any, index:any)=>( */}
-          <div style={{ color: 'white', display: 'flex', fontSize: 60 }}>
-          Contract_name : {newData}
-      </div>
-        {/* ))} */}
-        </>
-        
-    ),
+        <div style={{ color: 'white', fontSize: 30, display: 'flex', paddingLeft : 20, flexDirection : 'column', }}>
+            <p style={{color : 'white'}}>Contract 1 Name : <span style={{color : 'yellow', paddingLeft : 30}}> {valueData}</span></p>
+            <p style={{color : 'white'}}>Contract 1 Address : <span style={{color : 'yellow', paddingLeft : 30}}> {valueData1}</span></p>
+            <p style={{color : 'white'}}>Contract 1 Type : <span style={{color : 'yellow', paddingLeft : 30}}> {valueData2}</span></p>
+
+
+            <p style={{color : 'white'}}>Contract 2 Name : <span style={{color : 'yellow', paddingLeft : 30}}> {valueData3}</span></p>
+            <p style={{color : 'white'}}>Contract 2 Address : <span style={{color : 'yellow', paddingLeft : 30}}> {valueData4}</span></p>
+            <p style={{color : 'white'}}>Contract 2 Type : <span style={{color : 'yellow', paddingLeft : 30}}> {valueData5}</span></p>
+        </div>
+      ),
+    
     intents:[
       <Button.Link href="https://www.covalenthq.com/platform/#/">Free Covalent API key</Button.Link>,
       <Button.Reset>Full Circle</Button.Reset>
