@@ -35,7 +35,7 @@ app.frame('/', (c : any) => {
 
   app.frame('/submit', async (c:any) => {
     const { buttonValue } = c
-    const client = new CovalentClient("Your API KEY");
+    const client = new CovalentClient(`${process.env.NEXT_COVALENT_API_KEY}`);
     
     
     let valueData
