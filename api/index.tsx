@@ -35,8 +35,8 @@ app.frame('/', (c : any) => {
 
   app.frame('/submit', async (c:any) => {
     const { buttonValue } = c
-    const client = new CovalentClient("cqt_rQmCBkqc6Cqxb3JkJ3vB8kcf87Dk");
-    // const neynar_client = new NeynarAPIClient(`cqt_rQmCBkqc6Cqxb3JkJ3vB8kcf87Dk`);
+    const client = new CovalentClient("Your API KEY");
+    
     
     let valueData
     let valueData1
